@@ -8,7 +8,7 @@
     "clean": "rimraf dist",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.production.js",
     "lint": "eslint --ext .js,.jsx .",
-    "deploy": "npm run clean & npm run build && surge -p .",
+    "deploy": "npm run clean & npm run build && cp index.prod.html ./dist/index.html && gh-pages -d dist",
     "start": "cross-env NODE_ENV=development node server.js"
   },
   "author": "",
@@ -39,6 +39,7 @@
     "eslint-plugin-react": "^3.6.3",
     "express": "^4.13.3",
     "file-loader": "^0.8.4",
+    "gh-pages": "^0.11.0",
     "html-loader": "^0.4.0",
     "is-buffer": "^1.1.1",
     "markdown-loader": "^0.1.7",
