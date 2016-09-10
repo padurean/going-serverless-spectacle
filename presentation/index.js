@@ -40,7 +40,8 @@ require("spectacle/lib/themes/default/index.css");
 
 const images = {
   city: require("../assets/city.jpg"),
-  kat: require("../assets/kat.png"),
+  kat: require("../assets/ogg.jpg"),
+  ogg: require("../assets/ogg.jpg"),
   logo: require("../assets/formidable-logo.svg"),
   markdown: require("../assets/markdown.png")
 };
@@ -48,7 +49,9 @@ const images = {
 preloader(images);
 
 const theme = createTheme({
-  primary: "#ff4081"
+  primary: "#ff4081",
+  secondary: "#333",
+  tertiary: "#ddd"
 });
 
 export default class Presentation extends React.Component {
@@ -57,27 +60,39 @@ export default class Presentation extends React.Component {
       <Spectacle theme={theme}>
         <Deck transition={["zoom", "slide"]} transitionDuration={500}>
           <Slide transition={["zoom"]} bgColor="primary">
-            <Heading size={1} fit caps lineHeight={1} textColor="black">
-              Spectacle
-            </Heading>
-            <Heading size={1} fit caps>
-              A ReactJS Presentation Library
+            <Heading size={1} fit caps lineHeight={1} textColor="secondary">
+              Going Serverless
             </Heading>
             <Heading size={1} fit caps textColor="black">
-              Where You Can Write Your Decks In JSX
+              AWS Lambda in Practice
             </Heading>
-            <Link href="https://github.com/FormidableLabs/spectacle">
-              <Text bold caps textColor="tertiary">View on Github</Text>
+            <Heading size={1} fit caps textColor="tertiary">
+              2-in-1: Presentation + TODO Demo App
+            </Heading>
+            <small>
+              Harnessing the power of
+              <Link bold textColor="tertiary" href="https://facebook.github.io/react/" target="_blank"> React </Link>
+              &amp;
+              <Link bold textColor="tertiary" href="https://formidable.com/open-source/spectacle/" target="_blank"> Spectacle </Link>
+              on the Front-end side
+            </small>
+            <Link href="https://github.com/padurean/going-serverless-spectacle" target="_blank">
+              <Text bold caps textColor="tertiary">View source on Github</Text>
+            </Link>
+            <Link href="http://purecore.ro/going-serverless-spectacle">
+              <Text bold caps textColor="secondary">Review it anytime-anywhere!</Text>
             </Link>
             <OggFacebookLogin />
             <Text textSize="1.5em" margin="20px 0px 0px" bold>Hit Your Right Arrow To Begin!</Text>
           </Slide>
           <Slide transition={["slide"]} bgColor="black" notes="You can even put notes on your slide. How awesome is that?">
-            <Image src={images.kat.replace("/", "")} margin="0px auto 40px" height="293px"/>
-            <Heading size={2} caps fit textColor="primary" textFont="primary">
-              Wait what?
+            <Image src={images.ogg.replace("/", "")} margin="0px auto 40px" height="293px"/>
+            <Heading size={1} fit textColor="tertiary" textFont="primary">
+              Ogg is working on it, just that he is so busy with his main job now ;)
             </Heading>
+            <Text textSize="1em" textColor="primary" caps bold>Stay tuned!</Text>
           </Slide>
+          {/*
           <Slide transition={["zoom", "fade"]} bgColor="primary" notes="<ul><li>talk about that</li><li>and that</li></ul>">
             <CodePane
               lang="jsx"
@@ -166,8 +181,9 @@ You can write inline images, [Markdown Links](http://commonmark.org), paragraph 
             <Heading size={1} caps fit lineHeight={1.5} textColor="primary">
               Made with love in Seattle by
             </Heading>
-            <Link href="http://www.formidablelabs.com"><Image width="100%" src={images.logo}/></Link>
+            <Link href="http://www.formidablelabs.com" target="_blank"><Image width="100%" src={images.logo}/></Link>
           </Slide>
+          */}
         </Deck>
       </Spectacle>
     );
