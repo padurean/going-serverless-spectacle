@@ -1,4 +1,4 @@
-# Going Serverless - AWS Lambda in Practice - Presentation + TODO App as Demo
+# Going Serverless - AWS Lambda in Practice - Presentation + TODO App as Demo [![Build Status](https://travis-ci.org/padurean/going-serverless-spectacle.svg?branch=master)](https://travis-ci.org/padurean/going-serverless-spectacle)
 
 ## Reference
 
