@@ -14,18 +14,20 @@ export default class OggFacebookLogin extends Component {
     };
   }
   render() {
-    const style = {
+    const iconStyle = {
       padding: "0 0 .25rem 0",
       margin: "0 .5rem 0 0",
     };
     return (
-      <FacebookLogin
-        appId="688661967935072"
-        autoLoad={false}
-        fields="name,email,picture"
-        callback={responseFacebook}
-        icon={<IoSocialFacebook size={24} style={style} />}
-        size="small" />
+      <div id="fb-login-btn-wrapper" style={this.props.style}>
+        <FacebookLogin
+          appId="688661967935072"
+          autoLoad={false}
+          fields="name,email,picture"
+          callback={responseFacebook}
+          icon={<IoSocialFacebook size={24} style={iconStyle} />}
+          size="small" />
+      </div>
     );
   }
 
