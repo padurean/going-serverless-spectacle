@@ -5,6 +5,10 @@
 This presentation + app was built using React and AWS: Lambda, API Gateway and other friends :)
 It is based on [Spectacle](https://github.com/FormidableLabs/spectacle).
 
+## Live URL
+
+[Going Serverless @ PureCore.ro](http://purecore.ro/going-serverless-spectacle)
+
 ## Development
 
 Open terminal and run `npm i`.
