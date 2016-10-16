@@ -19,6 +19,9 @@ import {
   Quote,
   Slide,
   Spectacle,
+  TableItem,
+  TableRow,
+  Table,
   Text
 } from "spectacle";
 
@@ -51,52 +54,82 @@ const images = {
 
 preloader(images);
 
-const theme = createTheme({
-  primary: "#ff4081",
-  secondary: "#333",
-  tertiary: "#dedede"
-});
+const themeColors = {
+  primary: "#272727",
+  // secondary: "#ea8800",
+  secondary: "#D39F38",
+  tertiary: "#ccc"
+};
+const theme = createTheme(themeColors);
 
 export default class Presentation extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  handleSetState(s) {
+    this.setState(s);
+  }
+  handleGetState() {
+    return this.state
+  }
+
   render() {
     return (
       <Spectacle theme={theme}>
-        <Deck transition={["fade", "zoom", "slide"]} transitionDuration={100}>
+        <Deck transition={["fade", "zoom", "slide"]} transitionDuration={500}>
           <Slide transition={["slide"]} bgColor="primary">
-            <Heading size={1} fit caps lineHeight={1} textColor="secondary">
+            <Heading size={1} fit caps lineHeight={1} textColor="tertiary">
               Going Serverless
             </Heading>
-            <Heading size={1} fit caps textColor="tertiary">
-              AWS Lambda in Practice
-            </Heading>
-            <Heading size={1} fit caps textColor="secondary" margin="2rem 0 0 0">
-              2-in-1: Presentation + TODO Demo App
-            </Heading>
-            <Text bold textSize="2rem" textColor="secondary" margin="2rem 0 0 0">
-                <Link textColor="tertiary" href="https://facebook.github.io/react/" target="_blank"> React </Link>
-                &amp;
-                <Link textColor="tertiary" href="https://formidable.com/open-source/spectacle/" target="_blank"> Spectacle </Link>
-                @ Front-end
-            </Text>
-            <Text bold textSize="2rem" textColor="secondary">
-                <Link textColor="tertiary" href="http://docs.aws.amazon.com/lambda/latest/dg/welcome.html" target="_blank"> AWS Lambdas </Link>
-                &amp;
-                <Link textColor="tertiary" href="http://www.scala-lang.org/" target="_blank"> Scala </Link>
-                @ Back-end
-            </Text>
-            <Text bold textSize="2rem" margin="2rem 0 0 0">
-              <Link href="https://github.com/padurean/going-serverless-spectacle" target="_blank" textColor="tertiary"> <IoSocialOctocat style={{marginBottom: ".25rem"}} /> Source </Link>&nbsp;
-              <Link href="http://purecore.ro/going-serverless-spectacle" textColor="tertiary"> <IoIosAlbums style={{marginBottom: ".25rem"}} /> Live </Link>
-            </Text>
-            <OggFacebookLogin style={{marginTop: "2rem"}} />
-            {/*<Text textSize="1.5em" margin="20px 0px 0px" bold>Hit Your Right Arrow To Begin!</Text>*/}
+            <Appear fid="1">
+              <Heading size={1} fit caps textColor="secondary">
+                AWS Lambda in Practice
+              </Heading>
+            </Appear>
+            <Appear fid="2">
+              <Text bold textColor="tertiary" margin="2rem 0 0 0">
+                2-in-1: Presentation + TODO Demo App
+              </Text>
+            </Appear>
+            <Appear fid="3">
+              <Text bold textSize="2rem" textColor="tertiary" margin="2rem 0 0 0">
+                  <Link textColor="secondary" href="https://facebook.github.io/react/" target="_blank"> React </Link>
+                  &amp;
+                  <Link textColor="secondary" href="https://formidable.com/open-source/spectacle/" target="_blank"> Spectacle </Link>
+                  @ Front-end
+              </Text>
+            </Appear>
+            <Appear fid="4">
+              <Text bold textSize="2rem" textColor="tertiary">
+                  <Link textColor="secondary" href="http://docs.aws.amazon.com/lambda/latest/dg/welcome.html" target="_blank"> AWS Lambdas </Link>
+                  &amp;
+                  <Link textColor="secondary" href="http://www.scala-lang.org/" target="_blank"> Scala </Link>
+                  @ Back-end
+              </Text>
+            </Appear>
+            <Appear fid="5">
+              <Text bold textSize="2rem" margin="2rem 0 0 0">
+                <Link href="https://github.com/padurean/going-serverless-spectacle" target="_blank" textColor="secondary"> <IoSocialOctocat style={{marginBottom: ".25rem"}} /> Source </Link>&nbsp;
+                <Link href="http://purecore.ro/going-serverless-spectacle" textColor="secondary"> <IoIosAlbums style={{marginBottom: ".25rem"}} /> Live </Link>
+              </Text>
+            </Appear>
+            <Appear fid="6">
+              <Heading size={5}>
+                <OggFacebookLogin
+                  style={{lineHeight: "1.5rem"}}
+                  handleSetState={this.handleSetState.bind(this)}
+                  handleGetState={this.handleGetState.bind(this)} />
+                {/*<Text textSize="1.5em" margin="20px 0px 0px" bold>Hit Your Right Arrow To Begin!</Text>*/}
+              </Heading>
+            </Appear>
           </Slide>
-          <Slide transition={["slide"]} bgColor="black" notes="You can even put notes on your slide. How awesome is that?">
+          <Slide transition={["slide"]} notes="You can even put notes on your slide. How awesome is that?">
             <Image src={images.ogg.replace("/", "")} margin="0px auto 40px" height="293px"/>
             <Heading size={1} fit textColor="tertiary" textFont="primary">
               Ogg is working on it, just that he is so busy with his main job now ;)
             </Heading>
-            <Text textSize="1em" textColor="primary" caps bold>Stay tuned!</Text>
+            <Text textSize="1em" textColor="secondary" caps bold>Stay tuned!</Text>
           </Slide>
           {/*
           <Slide transition={["zoom", "fade"]} bgColor="primary" notes="<ul><li>talk about that</li><li>and that</li></ul>">

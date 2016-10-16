@@ -17,7 +17,6 @@
     "normalize.css": "3.0.3",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
-    "react-facebook-login": "^3.2.0",
     "react-icons": "^2.2.1",
     "spectacle": "^1.0.0"
   },
