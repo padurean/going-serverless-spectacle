@@ -31,7 +31,7 @@ import preloader from "spectacle/lib/utils/preloader";
 // Import theme
 import createTheme from "spectacle/lib/themes/default";
 
-import IoSocialOctocat from 'react-icons/lib/io/social-octocat';
+import IoSocialGithub from 'react-icons/lib/io/social-github';
 import IoIosAlbums from 'react-icons/lib/io/ios-albums';
 
 // Import custom component
@@ -98,6 +98,7 @@ export default class Presentation extends React.Component {
                   &amp;
                   <Link textColor="secondary" href="https://formidable.com/open-source/spectacle/" target="_blank"> Spectacle </Link>
                   @ Front-end
+                  <Link href="https://github.com/padurean/going-serverless-spectacle" target="_blank" textColor="secondary"><IoSocialGithub style={{marginBottom: ".25rem", marginLeft: ".25rem"}} /></Link>
               </Text>
             </Appear>
             <Appear fid="4">
@@ -106,11 +107,11 @@ export default class Presentation extends React.Component {
                   &amp;
                   <Link textColor="secondary" href="http://www.scala-lang.org/" target="_blank"> Scala </Link>
                   @ Back-end
+                  <Link href="https://github.com/padurean/going-serverless-spectacle-aws-lambda" target="_blank" textColor="secondary"><IoSocialGithub style={{marginBottom: ".25rem", marginLeft: ".25rem"}} /></Link>
               </Text>
             </Appear>
             <Appear fid="5">
               <Text bold textSize="2rem" margin="2rem 0 0 0">
-                <Link href="https://github.com/padurean/going-serverless-spectacle" target="_blank" textColor="secondary"> <IoSocialOctocat style={{marginBottom: ".25rem"}} /> Source </Link>&nbsp;
                 <Link href="http://purecore.ro/going-serverless-spectacle" textColor="secondary"> <IoIosAlbums style={{marginBottom: ".25rem"}} /> Live </Link>
               </Text>
             </Appear>
