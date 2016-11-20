@@ -56,7 +56,6 @@ preloader(images);
 
 const themeColors = {
   primary: "#272727",
-  // secondary: "#ea8800",
   secondary: "#D39F38",
   tertiary: "#ccc"
 };

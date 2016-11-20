@@ -11,7 +11,7 @@ can be found [here](https://github.com/padurean/going-serverless-spectacle-aws-l
 
 ## Live URL
 
-[Going Serverless @ PureCore.ro](http://purecore.ro/going-serverless-spectacle)
+[Going Serverless Spectacle @ PureCore.ro](http://purecore.ro/going-serverless-spectacle)
 
 ## Development
 
