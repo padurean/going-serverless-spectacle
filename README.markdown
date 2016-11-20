@@ -6,7 +6,7 @@ This presentation + app was built using React and AWS: Lambda, API Gateway and o
 
 The presentation itself is based on [Spectacle](https://github.com/FormidableLabs/spectacle).
 
-The source [code for the AWS Lambda(s)](https://github.com/padurean/going-serverless-spectacle-aws-lambda)
+The [source code for the AWS Lambda(s)](https://github.com/padurean/going-serverless-spectacle-aws-lambda)
 that constitute it's back-end REST microservice(s) can be
 found [here](https://github.com/padurean/going-serverless-spectacle-aws-lambda).
 
