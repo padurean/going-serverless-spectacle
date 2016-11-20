@@ -14,6 +14,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "aws-api-gateway-client": "^0.1.10",
     "normalize.css": "3.0.3",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",

@@ -114,15 +114,13 @@ export default class Presentation extends React.Component {
                 <Link href="http://purecore.ro/going-serverless-spectacle" textColor="secondary"> <IoIosAlbums style={{marginBottom: ".25rem"}} /> Live </Link>
               </Text>
             </Appear>
-            <Appear fid="6">
-              <Heading size={5}>
-                <OggFacebookLogin
-                  style={{lineHeight: "1.5rem"}}
-                  handleSetState={this.handleSetState.bind(this)}
-                  handleGetState={this.handleGetState.bind(this)} />
-                {/*<Text textSize="1.5em" margin="20px 0px 0px" bold>Hit Your Right Arrow To Begin!</Text>*/}
-              </Heading>
-            </Appear>
+            <Heading size={5}>
+              <OggFacebookLogin
+                style={{lineHeight: "1.5rem"}}
+                handleSetState={this.handleSetState.bind(this)}
+                handleGetState={this.handleGetState.bind(this)} />
+              {/*<Text textSize="1.5em" margin="20px 0px 0px" bold>Hit Your Right Arrow To Begin!</Text>*/}
+            </Heading>
           </Slide>
           <Slide transition={["slide"]} notes="You can even put notes on your slide. How awesome is that?">
             <Image src={images.ogg.replace("/", "")} margin="0px auto 40px" height="293px"/>

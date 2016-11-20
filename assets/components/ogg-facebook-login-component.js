@@ -39,43 +39,58 @@ class OggFacebookLoginComponent extends React.Component {
       js.src = `//connect.facebook.net/${language}/all.js`;
       fjs.parentNode.insertBefore(js, fjs);
     })(document, 'script', 'facebook-jssdk');
+    // Load the AWS SDK asynchronously
+    ((d, s, id) => {
+      const element = d.getElementsByTagName(s)[0];
+      const fjs = element;
+      let js = element;
+      if (d.getElementById(id)) { return; }
+      js = d.createElement(s); js.id = id;
+      js.src = `//sdk.amazonaws.com/js/aws-sdk-2.6.9.min.js`;
+      fjs.parentNode.insertBefore(js, fjs);
+    })(document, 'script', 'aws-sdk');
   }
 
   responseApi(authResponse) {
     window.FB.api('/me', { fields: this.props.fields }, (me) => {
       Object.assign(me, authResponse);
+      const stateWPicUrl = Object.assign(
+        this.props.handleGetState(),
+        {
+          facebookUserData: {
+            userPicUrl: me.picture.data.url,
+            userFirstName: me.name.split(' ')[0]
+          }
+        }
+      );
+      this.props.handleSetState(stateWPicUrl);
+      // console.log('me: ', me);
       this.props.callback(me);
     });
   };
 
   checkLoginState(response) {
-    if (response.authResponse) {
-      this.responseApi(response.authResponse);
-      console.log('FB response: ', response);
-      if (response.status==='connected') {
-        this.props.handleSetState({loggedIn: true});
-        console.log('State after successful login: ', this.props.handleGetState());
-      } else {
-        this.props.handleSetState({loggedIn: false});
-        if (this.props.callback) {
-          this.props.callback({ status: response.status });
-        }
-        console.log('State after checkLoginState failed: ', this.props.handleGetState());
-      }
+    // console.log('FB response: ', response);
+    if (response.authResponse && response.status==='connected') {
+      this.responseApi(Object.assign(response.authResponse, {connected: true}));
+      this.props.handleSetState({loggedIn: true});
+      // console.log('State after successful login: ', this.props.handleGetState());
     } else {
+      // console.log(`Not logged in to Facebook - status: ${response.status}`);
+      this.props.handleSetState({loggedIn: false});
       if (this.props.callback) {
-        this.props.callback({ status: response.status });
+        this.props.callback({connected: false});
       }
-      console.log('State after checkLoginState failed: ', this.props.handleGetState());
+      // console.log('State after checkLoginState failed: ', this.props.handleGetState());
     }
   };
 
   clickLogout() {
     let self = this;
     window.FB.logout(function(response) {
-      console.log('Logout response: ', response);
-      self.props.handleSetState({loggedIn: false});
-      console.log('State after logout: ', self.props.handleGetState());
+      // console.log('Logout response: ', response);
+      self.props.handleSetState({loggedIn: false, facebookUserData: null});
+      // console.log('State after logout: ', self.props.handleGetState());
     });
   }
 
@@ -115,49 +130,89 @@ class OggFacebookLoginComponent extends React.Component {
   render() {
     const { cssClass, size, icon, textButton, textButtonLoggedIn } = this.props;
     const isIconString = typeof icon === 'string';
+    const currState = this.props.handleGetState() || {};
 
-      if (!this.props.handleGetState() || !this.props.handleGetState().loggedIn) return (
-        <span>
-          {isIconString && (
-            <link
-              rel="stylesheet"
-              href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
-            />
+    const fbUserData = currState.facebookUserData || {};
+    const userPicUrl = fbUserData.userPicUrl;
+    const userFirstName = fbUserData.userFirstName;
+
+    const userPic =
+      userPicUrl &&
+      <img
+        src={userPicUrl}
+        style={{
+          borderRadius: '18px',
+          width: '36px',
+          height: '36px',
+          margin: '3px 0 2px 0',
+          verticalAlign: 'middle',
+         }} />
+      || '';
+    const commaAndUserFirstName = userFirstName ?
+      `, ${userFirstName}` :
+      '';
+
+    if (!currState.loggedIn) return (
+      <span>
+        {isIconString && (
+          <link
+            rel="stylesheet"
+            href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+          />
+        )}
+        <button
+          className={`${cssClass} ${size}`}
+          onClick={this.click.bind(this)}
+          style={{
+            padding: '2px 5px',
+            fontSize: '24px',
+            color: '#e5eeff',
+            backgroundColor: '#3b5998',
+            borderLeft: 'solid 1px #666',
+            borderTop: 'solid 1px #666',
+            borderRight: 'solid 1px #111',
+            borderBottom: 'solid 1px #111',
+            borderRadius: '3px'}}
+        >
+          {icon && isIconString && (
+            <i className={`fa ${icon}`}></i>
           )}
-          <button
-            className={`${cssClass} ${size}`}
-            onClick={this.click.bind(this)}
-            style={{fontSize: '1.25rem', color: '#fff', backgroundColor: '#3b5998'}}
-          >
-            {icon && isIconString && (
-              <i className={`fa ${icon}`}></i>
-            )}
-            {icon && !isIconString && icon}
-            {textButton}
-          </button>
-        </span>
-      );
-      else return (
-        <span>
-          {isIconString && (
-            <link
-              rel="stylesheet"
-              href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
-            />
+          {icon && !isIconString && icon}
+          <span style={{display: 'inline-block', margin: '3px 11px 0 0'}}>{textButton}</span>
+        </button>
+      </span>
+    );
+    else return (
+      <span>
+        {isIconString && (
+          <link
+            rel="stylesheet"
+            href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+          />
+        )}
+        <button
+          className={`${cssClass} ${size}`}
+          onClick={this.clickLogout.bind(this)}
+          style={{
+            fontSize: '24px',
+            color: '#e5eeff',
+            backgroundColor: '#3b5998',
+            borderLeft: 'solid 1px #666',
+            borderTop: 'solid 1px #666',
+            borderRight: 'solid 1px #111',
+            borderBottom: 'solid 1px #111',
+            borderRadius: '3px'}}
+        >
+          {icon && isIconString && (
+            <i className={`fa ${icon}`}></i>
           )}
-          <button
-            className={`${cssClass} ${size}`}
-            onClick={this.clickLogout.bind(this)}
-            style={{fontSize: '1.25rem', color: '#fff', backgroundColor: '#3b5998'}}
-          >
-            {icon && isIconString && (
-              <i className={`fa ${icon}`}></i>
-            )}
-            {icon && !isIconString && icon}
-            {textButtonLoggedIn}
-          </button>
-        </span>
-      );
+          {icon && !isIconString && icon}
+          {userPic}
+          <span style={{marginLeft: '8px', marginRight: '11px'}}>
+            {textButtonLoggedIn}{commaAndUserFirstName}</span>
+        </button>
+      </span>
+    );
   }
 }
 
@@ -184,8 +239,9 @@ OggFacebookLoginComponent.propTypes = {
 };
 
 OggFacebookLoginComponent.defaultProps = {
-  textButton: 'Login with Facebook',
-  textButtonLoggedIn: 'Logout from Facebook',
+  textButton: 'Login',
+  textButtonLoggingIn: 'Hold on 1s ...',
+  textButtonLoggedIn: 'Logout',
   typeButton: 'button',
   scope: 'public_profile,email',
   xfbml: false,
